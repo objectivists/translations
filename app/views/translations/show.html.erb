@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Book:</strong>
+  <%= @translation.book.title %>
+</p>
+
+<p>
+  <strong>Language:</strong>
+  <%= @translation.language.name %>
+</p>
+
+<p>
+  <strong>Translated title:</strong>
+  <%= @translation.title %>
+</p>
+
+<p>
+  <strong>Publisher:</strong>
+  <%= @translation.publisher %>
+</p>
+
+<p>
+  <strong>Translator:</strong>
+  <%= @translation.translator %>
+</p>
+
+<p>
+  <strong>ISBN-13:</strong>
+  <%= @translation.isbn_13 %>
+</p>
+
+<p>
+  <strong>ISBN-10:</strong>
+  <%= @translation.isbn_10 %>
+</p>
+
+<p>
+  <strong>Foreign cover image:</strong>
+  <br>
+  <br>
+  <%= image_tag(@translation.cover_image_url, size: '150x200') %>
+</p>
+
+<%= link_to 'Edit', edit_translation_path(@translation) %> |
+<%= link_to 'Back', translations_path %>

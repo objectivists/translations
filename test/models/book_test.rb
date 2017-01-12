@@ -37,4 +37,18 @@ class BookTest < ActiveSupport::TestCase
     end
   end
 
+  test 'to_param should return the slug' do
+    book = build(:book)
+    assert_equal book.slug, book.to_param
+  end
+
+  test 'should abort destruction when referenced' do
+    translation = create :translation
+    book = translation.book
+
+    book.destroy
+
+    assert !book.destroyed?
+  end
+
 end

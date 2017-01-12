@@ -30,10 +30,10 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     get books_url
 
-    assert_select 'a[href=?]', "/admin/books/#{book.id}", {:text => 'Show'}
-    assert_select 'a[href=?]', "/admin/books/#{book.id}/edit", {:text => 'Edit'}
+    assert_select 'a[href=?]', "/admin/books/#{book.slug}", {:text => 'Show'}
+    assert_select 'a[href=?]', "/admin/books/#{book.slug}/edit", {:text => 'Edit'}
     assert_select 'a[href=?][data-method=delete][data-confirm="Are you sure?"]',
-                  "/admin/books/#{book.id}", {:text => 'Delete'}
+                  "/admin/books/#{book.slug}", {:text => 'Delete'}
     assert_select 'a[href=?]', '/admin/books/new', {:text => 'New Book'}
 
     assert_response :success
@@ -72,7 +72,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', /#{book.author}/
     assert_select 'p', /#{book.slug}/
 
-    assert_select 'a[href=?]', "/admin/books/#{book.id}/edit", {:text => 'Edit'}
+    assert_select 'a[href=?]', "/admin/books/#{book.slug}/edit", {:text => 'Edit'}
     assert_select 'a[href=?]', '/admin/books', {:text => 'Back'}
 
     assert_response :success
@@ -88,7 +88,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_form_for_book
 
     assert_select 'a[href=?]', '/admin/books', {:text => 'Back'}
-    assert_select 'a[href=?]', "/admin/books/#{book.id}", {:text => 'Show'}
+    assert_select 'a[href=?]', "/admin/books/#{book.slug}", {:text => 'Show'}
 
     assert_response :success
   end
@@ -96,13 +96,28 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update book' do
     book = create(:book)
-    patch book_url(book), params: {book: attributes_for(:book)}
+    patch book_url(book), params: {book: attributes_for(:book, title: 'updated-title')}
     assert_redirected_to book_url(book)
+
+    get book_url(book)
+
+    assert_select 'p', /updated-title/
   end
 
   test 'should destroy book' do
     book = create(:book)
     assert_difference('Book.count', -1) do
+      delete book_url(book)
+    end
+
+    assert_redirected_to books_url
+  end
+
+  test 'should not destroy book with translation' do
+    translation = create :translation
+    book = translation.book
+
+    assert_difference('Book.count', 0) do
       delete book_url(book)
     end
 

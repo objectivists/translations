@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170108050333) do
+ActiveRecord::Schema.define(version: 20170122042020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,4 +24,29 @@ ActiveRecord::Schema.define(version: 20170108050333) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "languages", force: :cascade do |t|
+    t.string   "name"
+    t.string   "local_name"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "translations", force: :cascade do |t|
+    t.integer  "book_id"
+    t.integer  "language_id"
+    t.string   "title"
+    t.string   "cover_image_url"
+    t.string   "publisher"
+    t.string   "translator"
+    t.string   "isbn_13"
+    t.string   "isbn_10"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["book_id"], name: "index_translations_on_book_id", using: :btree
+    t.index ["language_id"], name: "index_translations_on_language_id", using: :btree
+  end
+
+  add_foreign_key "translations", "books"
+  add_foreign_key "translations", "languages"
 end

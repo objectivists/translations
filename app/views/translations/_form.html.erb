@@ -1,0 +1,57 @@
+<%= form_for(translation) do |f| %>
+  <% if translation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(translation.errors.count, "error") %> prohibited this translation from being saved:</h2>
+
+      <ul>
+      <% translation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :book_id %>
+    <%= f.select :book_id, Book.all.collect {|book| [book.title, book.id]}, prompt: 'Select a book' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :language_id %>
+    <%= f.select :language_id, Language.all.collect {|lang| [lang.name, lang.id]}, prompt: 'Select a language' %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Translated title' %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Foreign cover image url' %>
+    <%= f.text_field :cover_image_url %>
+  </div>
+
+  <div class="field">
+    <%= f.label :publisher %>
+    <%= f.text_field :publisher %>
+  </div>
+
+  <div class="field">
+    <%= f.label :translator %>
+    <%= f.text_field :translator %>
+  </div>
+
+  <div class="field">
+    <%= f.label :isbn_13 %>
+    <%= f.text_field :isbn_13 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :isbn_10 %>
+    <%= f.text_field :isbn_10 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
