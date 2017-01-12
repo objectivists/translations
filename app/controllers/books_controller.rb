@@ -38,8 +38,8 @@ class BooksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /books/1
-  # PATCH/PUT /books/1.json
+  # PATCH/PUT /books/slug
+  # PATCH/PUT /books/slug.json
   def update
     respond_to do |format|
       if @book.update(book_params)
@@ -52,19 +52,26 @@ class BooksController < ApplicationController
     end
   end
 
-  # DELETE /books/1
-  # DELETE /books/1.json
+  # DELETE /books/slug
+  # DELETE /books/slug.json
   def destroy
     @book.destroy
     respond_to do |format|
-      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
-      format.json { head :no_content }
+      if @book.destroyed?
+        format.html { redirect_to books_url, notice: 'Book was successfully deleted.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to books_url, notice: 'Book could not be deleted. Make sure it is not being used
+          elsewhere (e.g., if there is a translation for the book, the book cannot be deleted).' }
+        format.json { render json: @book.errors, status: :conflict }
+      end
+
     end
   end
 
   private
     def set_book
-      @book = Book.find(params[:id])
+      @book = Book.find_by_slug(params[:id])
     end
 
     # Whitelist params
