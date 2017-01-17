@@ -6,11 +6,6 @@
 </p>
 
 <p>
-  <strong>Cover image url:</strong>
-  <%= @book.cover_image_url %>
-</p>
-
-<p>
   <strong>Author:</strong>
   <%= @book.author %>
 </p>
@@ -18,6 +13,13 @@
 <p>
   <strong>Slug:</strong>
   <%= @book.slug %>
+</p>
+
+<p>
+  <strong>Cover image:</strong>
+  <br>
+  <br>
+  <%= image_tag(@book.cover_image_url) %>
 </p>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
