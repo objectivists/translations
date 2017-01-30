@@ -12,3 +12,4 @@ Then you can:
 
 * Run the server with `rails server` and go to http://localhost:3000 to see the app
 * Run the tests with `rake test`
+* Seed the database with `rake db:seed`
