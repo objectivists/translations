@@ -2,7 +2,7 @@ class Book < ApplicationRecord
   has_many :translations
   before_destroy :ensure_not_referenced
 
-  validates :title, :author, :slug, :cover_image_url, presence: true
+  validates :title, :author, :slug, presence: true
   validates :title, :slug, uniqueness: true
   validates :cover_image_url, format: {
       with:    %r{\.(gif|jpg|jpeg|png)\Z}i,
