@@ -13,7 +13,6 @@ class BookTest < ActiveSupport::TestCase
     assert book.errors[:title].any?
     assert book.errors[:author].any?
     assert book.errors[:slug].any?
-    assert book.errors[:cover_image_url].any?
   end
 
   test 'uniq fields cannot be duplicated' do

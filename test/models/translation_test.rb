@@ -10,9 +10,8 @@ class TranslationTest < ActiveSupport::TestCase
   test 'required attributes must not be empty' do
     translation = Translation.new
     assert translation.invalid?
-    assert translation.errors[:title].any?
-    assert translation.errors[:cover_image_url].any?
-    assert translation.errors[:publisher].any?
+    assert translation.errors[:book].any?
+    assert translation.errors[:language].any?
   end
 
   test 'uniq fields cannot be duplicated' do
