@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class LanguagesControllerTest < ActionDispatch::IntegrationTest
-  include FactoryGirl::Syntax::Methods
+  include AuthenticationTestBase
+
+  setup do
+    @url_to_validate_authentication = languages_url
+  end
 
   test 'should get index and display content' do
     language = create(:language)

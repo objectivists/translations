@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class TranslationsControllerTest < ActionDispatch::IntegrationTest
-  include FactoryGirl::Syntax::Methods
+  include AuthenticationTestBase
+
+  setup do
+    @url_to_validate_authentication = translations_url
+  end
 
   test 'should get index and display content' do
     translation = create(:translation)

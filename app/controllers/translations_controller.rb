@@ -1,4 +1,4 @@
-class TranslationsController < ApplicationController
+class TranslationsController < AdminController
   before_action :set_translation, only: [:show, :edit, :update, :destroy]
 
   # GET /translations
