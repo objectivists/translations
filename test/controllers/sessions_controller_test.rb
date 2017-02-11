@@ -2,6 +2,7 @@ require 'test_helper'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
   include FactoryGirl::Syntax::Methods
+  include AuthenticationTestSupport
 
   test 'should get new' do
     get login_url
@@ -15,8 +16,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create session' do
-    user = create(:user)
-    post login_url, params: {email: user.email,  password: 'password'}
+    create_logged_in_user
     assert_redirected_to admin_url
   end
 
@@ -33,7 +33,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy session' do
-    delete logout_url
+    logout_user
     assert_redirected_to login_url
 
     get admin_url

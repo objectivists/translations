@@ -1,7 +1,10 @@
-# Base test support and testing for any authenticated controller.
-module AuthenticationTestBase
+require 'support/authentication_test_support'
+
+# Tests that should be included for any authenticated controller.
+module AuthenticationTests
   extend ActiveSupport::Concern
   include FactoryGirl::Syntax::Methods
+  include AuthenticationTestSupport
 
   # Tests require controllers to set '@url_to_validate_authentication'.
   included do
@@ -16,15 +19,4 @@ module AuthenticationTestBase
       assert_redirected_to login_url
     end
   end
-
-  def create_logged_in_user
-    user = create(:user)
-    post login_url, params: {email: user.email, password: 'password'}
-    user
-  end
-
-  def logout_user
-    delete logout_url
-  end
-
 end

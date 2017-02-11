@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TranslationsControllerTest < ActionDispatch::IntegrationTest
-  include AuthenticationTestBase
+  include AuthenticationTests
 
   setup do
     @url_to_validate_authentication = translations_url

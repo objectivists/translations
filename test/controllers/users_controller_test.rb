@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
-  include AuthenticationTestBase
+  include AuthenticationTests
 
   setup do
     @url_to_validate_authentication = users_url

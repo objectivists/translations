@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AdminControllerTest < ActionDispatch::IntegrationTest
-  include AuthenticationTestBase
+  include AuthenticationTests
 
   setup do
     @url_to_validate_authentication = admin_url

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class BooksControllerTest < ActionDispatch::IntegrationTest
-  include AuthenticationTestBase
+  include AuthenticationTests
 
   setup do
     @url_to_validate_authentication = books_url
