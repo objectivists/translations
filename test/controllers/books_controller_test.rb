@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class BooksControllerTest < ActionDispatch::IntegrationTest
-  include FactoryGirl::Syntax::Methods
+  include AuthenticationTests
+
+  setup do
+    @url_to_validate_authentication = books_url
+  end
 
   test 'should get index and display content' do
     book = create(:book)
