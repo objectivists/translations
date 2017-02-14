@@ -1,6 +1,15 @@
-<h1>Editing Book</h1>
+<div style="margin-top:50px;" class="container-fluid col-md-8 col-md-offset-2">
+  <div class="panel panel-primary">
 
-<%= render 'form', book: @book %>
+    <div class="panel-heading">
+      <div class="panel-title">Edit book</div>
+    </div>
 
-<%= link_to 'Show', @book %> |
-<%= link_to 'Back', books_path %>
+    <div style="padding-top:30px" class="panel-body">
+
+      <%= render 'form', book: @book %>
+
+    </div>
+  </div>
+</div>
+

@@ -10,12 +10,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should get index and display content' do
     get users_url
 
-    assert_select 'h1', 'Users'
+    assert_select 'h4', 'Admins'
 
     assert_select '.user', User.count
 
     assert_select 'th', 'Email'
-    assert_select 'th', 'Actions'
 
     assert_select 'td', @user.email
 
@@ -25,22 +24,19 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'index should provide links' do
     get users_url
 
-    assert_select 'a[href=?]', "/admin/users/#{@user.id}", {:text => 'Show'}
-    assert_select 'a[href=?]', "/admin/users/#{@user.id}/edit", {:text => 'Edit'}
-    assert_select 'a[href=?][data-method=delete][data-confirm="Are you sure?"]',
-                  "/admin/users/#{@user.id}", {:text => 'Delete'}
-    assert_select 'a[href=?]', '/admin/users/new', {:text => 'New User'}
+    assert_select 'a[href=?]', "/admin/users/#{@user.id}/edit"
+    assert_select 'a[href=?][data-method=delete][data-confirm="Are you sure?"]', "/admin/users/#{@user.id}"
+    assert_select 'a[href=?]', '/admin/users/new'
 
     assert_response :success
   end
 
   test 'should get new' do
     get new_user_url
-    assert_select 'h1', 'New User'
+    assert_select '.panel-title', 'New user'
 
     assert_form_for_user
 
-    assert_select 'a[href=?]', '/admin/users', {:text => 'Back'}
     assert_response :success
   end
 
@@ -52,28 +48,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to users_url
   end
 
-  test 'should show user' do
-    get user_url(@user)
-
-    assert_select 'p', /Email/
-
-    assert_select 'p', /#{@user.email}/
-
-    assert_select 'a[href=?]', "/admin/users/#{@user.id}/edit", {:text => 'Edit'}
-    assert_select 'a[href=?]', '/admin/users', {:text => 'Back'}
-
-    assert_response :success
-  end
-
   test 'should get edit' do
     get edit_user_url(@user)
 
-    assert_select 'h1', 'Editing User'
+    assert_select '.panel-title', 'Edit user'
 
     assert_form_for_user
 
-    assert_select 'a[href=?]', '/admin/users', {:text => 'Back'}
-    assert_select 'a[href=?]', "/admin/users/#{@user.id}", {:text => 'Show'}
+    assert_select 'a[href=?]', '/admin/users'
 
     assert_response :success
   end
@@ -98,9 +80,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   private
 
   def assert_form_for_user
-    assert_select '.field', 'Email'
-    assert_select '.field', 'Password'
+    assert_select '.control-label', 'Email'
+    assert_select '.control-label', 'Password'
 
-    assert_select '.actions [type=submit]'
+    assert_select 'input[type="submit"]'
   end
 end

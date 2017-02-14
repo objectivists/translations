@@ -1,57 +1,78 @@
-<%= form_for(translation) do |f| %>
-  <% if translation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(translation.errors.count, "error") %> prohibited this translation from being saved:</h2>
+<%= form_for translation, html: {class: 'form-horizontal'} do |f| %>
 
-      <ul>
-      <% translation.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if translation.errors.any? %>
+        <div id="error_explanation">
+          <div class="alert alert-warning" role="alert">Invalid entries:</div>
+          <ul>
+            <% translation.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :book_id, class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.select :book_id, Book.all.collect { |book| [book.title, book.id] },
+                     {prompt: 'Select a book'}, {class: 'form-control'} %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :book_id %>
-    <%= f.select :book_id, Book.all.collect {|book| [book.title, book.id]}, prompt: 'Select a book' %>
-  </div>
+    <div class="form-group">
+      <%= f.label :language_id, class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.select :language_id, Language.all.collect { |lang| [lang.name, lang.id] },
+                     {prompt: 'Select a language'}, {class: 'form-control'} %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :language_id %>
-    <%= f.select :language_id, Language.all.collect {|lang| [lang.name, lang.id]}, prompt: 'Select a language' %>
-  </div>
+    <div class="form-group">
+      <%= f.label 'Translated title', class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.text_field :title, class: 'form-control', placeholder: 'Enter translated title' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label 'Translated title' %>
-    <%= f.text_field :title %>
-  </div>
+    <div class="form-group">
+      <%= f.label 'Image', class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.text_field :cover_image_url, class: 'form-control', placeholder: 'Enter image url' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label 'Foreign cover image url' %>
-    <%= f.text_field :cover_image_url %>
-  </div>
+    <div class="form-group">
+      <%= f.label :publisher, class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.text_field :publisher, class: 'form-control', placeholder: 'Enter publisher' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :publisher %>
-    <%= f.text_field :publisher %>
-  </div>
+    <div class="form-group">
+      <%= f.label :translator, class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.text_field :translator, class: 'form-control', placeholder: 'Enter translator' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :translator %>
-    <%= f.text_field :translator %>
-  </div>
+    <div class="form-group">
+      <%= f.label :isbn_13, class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.text_field :isbn_13, class: 'form-control', placeholder: 'Enter ISBN-13 #' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :isbn_13 %>
-    <%= f.text_field :isbn_13 %>
-  </div>
+    <div class="form-group">
+      <%= f.label :isbn_10, class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.text_field :isbn_10, class: 'form-control', placeholder: 'Enter ISBN-10 #' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :isbn_10 %>
-    <%= f.text_field :isbn_10 %>
-  </div>
+    <div class="form-group">
+      <div class="col-md-3 col-md-offset-2 col-xs-8 col-xs-offset-2">
+        <%= f.submit class: 'btn btn-primary form-control' %>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

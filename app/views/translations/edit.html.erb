@@ -1,6 +1,14 @@
-<h1>Editing Translation</h1>
+<div style="margin-top:50px;" class="container-fluid col-md-8 col-md-offset-2">
+  <div class="panel panel-primary">
 
-<%= render 'form', translation: @translation %>
+    <div class="panel-heading">
+      <div class="panel-title">Edit translation</div>
+    </div>
 
-<%= link_to 'Show', @translation %> |
-<%= link_to 'Back', translations_path %>
+    <div style="padding-top:30px" class="panel-body">
+
+      <%= render 'form', translation: @translation %>
+
+    </div>
+  </div>
+</div>

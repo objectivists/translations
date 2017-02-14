@@ -1,25 +1,42 @@
-<div class="login_form">
-  <% if flash[:alert] %>
-      <p id="notice"><%= flash[:alert] %></p>
-  <% end %>
+<% if flash[:alert] %>
+    <p id="notice"><%= flash[:alert] %></p>
+<% end %>
 
-  <%= form_tag do %>
-      <fieldset>
-        <legend>Please Log In</legend>
+<div style="margin-top:50px;" class="container-fluid col-md-8 col-md-offset-2">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <div class="panel-title">Please Log In</div>
+      </div>
 
-        <div>
-          <%= label_tag :email, 'Email:' %>
-          <%= text_field_tag :email, params[:email] %>
-        </div>
+      <div style="padding-top:30px" class="panel-body">
 
-        <div>
-          <%= label_tag :password, 'Password:' %>
-          <%= password_field_tag :password, params[:password] %>
-        </div>
+        <%= form_tag login_url, {class: 'form-horizontal'}  do %>
+            <fieldset>
+              <div class="form-group">
+                <%= label_tag :email, 'Email', class: 'control-label col-md-2 col-sm-1' %>
+                <div class="col-md-8 col-sm-10">
+                  <%= text_field_tag :email, params[:email], class: 'form-control', placeholder: 'Enter email' %>
+                </div>
+              </div>
 
-        <div>
-          <%= submit_tag 'Login' %>
-        </div>
-      </fieldset>
-  <% end %>
+              <div class="form-group">
+                <%= label_tag :password, 'Password', class: 'control-label col-md-2 col-sm-1' %>
+                <div class="col-md-8 col-sm-10">
+                  <%= password_field_tag :password, params[:password], class: 'form-control', placeholder: 'Enter password' %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-3 col-md-offset-2 col-xs-8 col-xs-offset-2">
+                  <%= submit_tag 'Login', class: 'btn btn-success form-control' %>
+                </div>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+

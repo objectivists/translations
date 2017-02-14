@@ -12,14 +12,13 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     get books_url
 
-    assert_select 'h1', 'Books'
+    assert_select 'h4', 'Books'
 
     assert_select '.book', Book.count
 
     assert_select 'th', 'Title'
     assert_select 'th', 'Author'
     assert_select 'th', 'Slug'
-    assert_select 'th', 'Actions'
 
     assert_select 'img[src=?]', "/images/#{book.cover_image_url}"
     assert_select 'td', book.title
@@ -34,22 +33,19 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     get books_url
 
-    assert_select 'a[href=?]', "/admin/books/#{book.slug}", {:text => 'Show'}
-    assert_select 'a[href=?]', "/admin/books/#{book.slug}/edit", {:text => 'Edit'}
-    assert_select 'a[href=?][data-method=delete][data-confirm="Are you sure?"]',
-                  "/admin/books/#{book.slug}", {:text => 'Delete'}
-    assert_select 'a[href=?]', '/admin/books/new', {:text => 'New Book'}
+    assert_select 'a[href=?]', "/admin/books/#{book.slug}/edit"
+    assert_select 'a[href=?][data-method=delete][data-confirm="Are you sure?"]', "/admin/books/#{book.slug}"
+    assert_select 'a[href=?]', '/admin/books/new'
 
     assert_response :success
   end
 
   test 'should get new' do
     get new_book_url
-    assert_select 'h1', 'New Book'
+    assert_select '.panel-title', 'New book'
 
     assert_form_for_book
 
-    assert_select 'a[href=?]', '/admin/books', {:text => 'Back'}
     assert_response :success
   end
 
@@ -58,28 +54,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
       post books_url, params: {book: attributes_for(:book)}
     end
 
-    assert_redirected_to book_url(Book.last)
-  end
-
-  test 'should show book' do
-    book = create(:book)
-
-    get book_url(book)
-
-    assert_select 'p', /Title/
-    assert_select 'p', /Author/
-    assert_select 'p', /Slug/
-    assert_select 'p', /Cover image/
-
-    assert_select 'img[src=?]', "/images/#{book.cover_image_url}"
-    assert_select 'p', /#{book.title}/
-    assert_select 'p', /#{book.author}/
-    assert_select 'p', /#{book.slug}/
-
-    assert_select 'a[href=?]', "/admin/books/#{book.slug}/edit", {:text => 'Edit'}
-    assert_select 'a[href=?]', '/admin/books', {:text => 'Back'}
-
-    assert_response :success
+    assert_redirected_to books_url
   end
 
   test 'should get edit' do
@@ -87,21 +62,19 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     get edit_book_url(book)
 
-    assert_select 'h1', 'Editing Book'
+    assert_select '.panel-title', 'Edit book'
 
     assert_form_for_book
 
-    assert_select 'a[href=?]', '/admin/books', {:text => 'Back'}
-    assert_select 'a[href=?]', "/admin/books/#{book.slug}", {:text => 'Show'}
+    assert_select 'a[href=?]', '/admin/books'
 
     assert_response :success
   end
 
-
   test 'should update book' do
     book = create(:book)
     patch book_url(book), params: {book: attributes_for(:book, title: 'updated-title')}
-    assert_redirected_to book_url(book)
+    assert_redirected_to books_url
 
     get book_url(book)
 
@@ -131,11 +104,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   private
   
   def assert_form_for_book
-    assert_select '.field', 'Title'
-    assert_select '.field', 'Cover image url'
-    assert_select '.field', 'Author'
-    assert_select '.field', 'Slug'
+    assert_select '.control-label', 'Title'
+    assert_select '.control-label', 'Image'
+    assert_select '.control-label', 'Author'
+    assert_select '.control-label', 'Slug'
 
-    assert_select '.actions [type=submit]'
+    assert_select 'input[type="submit"]'
   end
 end

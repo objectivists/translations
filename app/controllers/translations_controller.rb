@@ -28,7 +28,7 @@ class TranslationsController < AdminController
 
     respond_to do |format|
       if @translation.save
-        format.html { redirect_to @translation, notice: 'Translation was successfully created.' }
+        format.html { redirect_to translations_url, notice: 'Translation was successfully created.' }
         format.json { render :show, status: :created, location: @translation }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class TranslationsController < AdminController
   def update
     respond_to do |format|
       if @translation.update(translation_params)
-        format.html { redirect_to @translation, notice: 'Translation was successfully updated.' }
+        format.html { redirect_to translations_url, notice: 'Translation was successfully updated.' }
         format.json { render :show, status: :ok, location: @translation }
       else
         format.html { render :edit }

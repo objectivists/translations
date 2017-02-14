@@ -1,42 +1,59 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Translations</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Book</th>
-      <th>Language</th>
-      <th>Translated Title</th>
-      <th>Foreign Cover Image</th>
-      <th>Publisher</th>
-      <th>Translator</th>
-      <th>ISBN-13</th>
-      <th>ISBN-10</th>
-      <th colspan="3">Actions</th>
-    </tr>
-  </thead>
+<div class="container-fluid">
+  <h4>Translations</h4>
+  <div class="row">
+    <div class="col-md-12">
 
-  <tbody>
-    <% @translations.each do |translation| %>
-      <tr class="translation">
-      <tr>
-        <td><%= translation.book.title %></td>
-        <td><%= translation.language.name %></td>
-        <td><%= translation.title %></td>
-        <td><%= image_tag(translation.cover_image_url, size: '150x200') %></td>
-        <td><%= translation.publisher %></td>
-        <td><%= translation.translator %></td>
-        <td><%= translation.isbn_13 %></td>
-        <td><%= translation.isbn_10 %></td>
-        <td><%= link_to 'Show', translation %></td>
-        <td><%= link_to 'Edit', edit_translation_path(translation) %></td>
-        <td><%= link_to 'Delete', translation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Cover</th>
+            <th>Book</th>
+            <th>Language</th>
+            <th>Translated Title</th>
+            <th>Publisher</th>
+            <th>Translator</th>
+            <th>ISBN-13</th>
+            <th>ISBN-10</th>
+          </tr>
+          </thead>
 
-<br>
+          <tbody>
+          <% @translations.each do |translation| %>
+              <tr class="translation">
+              <tr>
+                <td>
+                  <%= link_to edit_translation_path(translation) do %>
+                      <span class="glyphicon glyphicon-pencil"></span>
+                  <% end %>
+                  &nbsp;
+                  <%= link_to translation, method: :delete, data: {confirm: 'Are you sure?'} do %>
+                      <span class="glyphicon glyphicon-remove"></span>
+                  <% end %>
+                </td>
+                <td><%= image_tag(translation.cover_image_url, size: '45x75') %></td>
+                <td><%= translation.book.title %></td>
+                <td><%= translation.language.name %></td>
+                <td><%= translation.title %></td>
+                <td><%= translation.publisher %></td>
+                <td><%= translation.translator %></td>
+                <td><%= translation.isbn_13 %></td>
+                <td><%= translation.isbn_10 %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
 
-<%= link_to 'New Translation', new_translation_path %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= link_to 'New Translation', new_translation_path, class: 'btn btn-info', role: 'button' %>
+    </div>
+  </div>
+</div>
+
+

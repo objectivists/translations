@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Translations</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Ayn Rand Translations</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
   <body class="<%= controller.controller_name %>">
     <div id="header">
-      <%= link_to 'Admin Home', admin_path %>
-      <%= link_to 'Books', books_path %>
-      <%= link_to 'Languages', languages_path %>
-      <%= link_to 'Translations', translations_path %>
-      <%= link_to 'Users', users_path %>
-      <%= link_to 'Logout', logout_path, method: :delete %>
       <div id="main">
         <%= yield %>
       </div>
