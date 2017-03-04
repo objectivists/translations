@@ -28,7 +28,7 @@ class LanguagesController < AdminController
 
     respond_to do |format|
       if @language.save
-        format.html { redirect_to @language, notice: 'Language was successfully created.' }
+        format.html { redirect_to languages_url, notice: 'Language was successfully created.' }
         format.json { render :show, status: :created, location: @language }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class LanguagesController < AdminController
   def update
     respond_to do |format|
       if @language.update(language_params)
-        format.html { redirect_to @language, notice: 'Language was successfully updated.' }
+        format.html { redirect_to languages_url, notice: 'Language was successfully updated.' }
         format.json { render :show, status: :ok, location: @language }
       else
         format.html { render :edit }
@@ -60,7 +60,7 @@ class LanguagesController < AdminController
         format.html { redirect_to languages_url, notice: 'Language was successfully deleted.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to languages_url, notice: 'Language could not be removed. Make sure it is not being used
+        format.html { redirect_to languages_url, alert: 'Language could not be removed. Make sure it is not being used
           elsewhere (e.g., if there is a translation to/from this language, the language cannot be removed).' }
         format.json { render json: @language.errors, status: :conflict }
       end

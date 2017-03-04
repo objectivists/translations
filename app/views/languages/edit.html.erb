@@ -1,6 +1,15 @@
-<h1>Editing Language</h1>
+<div class="container-fluid col-md-8 col-md-offset-2 admin-form">
+  <div class="panel panel-primary">
 
-<%= render 'form', language: @language %>
+    <div class="panel-heading">
+      <h1 class="panel-title">Edit language</h1>
+    </div>
 
-<%= link_to 'Show', @language %> |
-<%= link_to 'Back', languages_path %>
+    <div class="panel-body admin-form-fields">
+
+      <%= render 'form', language: @language %>
+
+    </div>
+  </div>
+</div>
+

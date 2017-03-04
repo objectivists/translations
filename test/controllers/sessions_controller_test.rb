@@ -7,17 +7,17 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test 'should get new' do
     get login_url
 
-    assert_select 'legend', 'Please Log In'
+    assert_select '.panel-title', 'Please Log In'
 
-    assert_select 'label', 'Email:'
-    assert_select 'label', 'Password:'
+    assert_select '.control-label', 'Email'
+    assert_select '.control-label', 'Password'
 
     assert_select 'input[type=submit]'
   end
 
   test 'should create session' do
     create_logged_in_user
-    assert_redirected_to admin_url
+    assert_redirected_to books_url
   end
 
   test 'should fail to create session for invalid password' do

@@ -29,7 +29,7 @@ class BooksController < AdminController
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+        format.html { redirect_to books_url, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class BooksController < AdminController
   def update
     respond_to do |format|
       if @book.update(book_params)
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+        format.html { redirect_to books_url, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
       else
         format.html { render :edit }
@@ -61,7 +61,7 @@ class BooksController < AdminController
         format.html { redirect_to books_url, notice: 'Book was successfully deleted.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to books_url, notice: 'Book could not be deleted. Make sure it is not being used
+        format.html { redirect_to books_url, alert: 'Book could not be deleted. Make sure it is not being used
           elsewhere (e.g., if there is a translation for the book, the book cannot be deleted).' }
         format.json { render json: @book.errors, status: :conflict }
       end

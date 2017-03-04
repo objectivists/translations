@@ -1,32 +1,40 @@
-<%= form_for(language) do |f| %>
-  <% if language.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(language.errors.count, "error") %> prohibited this language from being saved:</h2>
+<%= form_for language, html: {class: 'form-horizontal'} do |f| %>
 
-      <ul>
-      <% language.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if language.errors.any? %>
+        <div class="alert alert-warning" role="alert">Invalid entries:
+          <ul>
+            <% language.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :name, class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.text_field :name, class: 'form-control', placeholder: 'Enter name' %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+    <div class="form-group">
+      <%= f.label 'Translated name', class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.text_field :local_name, class: 'form-control', placeholder: 'Enter translated form of language' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :local_name %>
-    <%= f.text_field :local_name %>
-  </div>
+    <div class="form-group">
+      <%= f.label :slug, class: 'control-label col-md-2 col-sm-1' %>
+      <div class="col-md-8 col-sm-10">
+        <%= f.text_field :slug, class: 'form-control', placeholder: 'Enter slug' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :slug %>
-    <%= f.text_field :slug %>
-  </div>
+    <div class="form-group">
+      <div class="col-md-3 col-md-offset-2 col-xs-8 col-xs-offset-2">
+        <%= f.submit class: 'btn btn-primary form-control' %>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

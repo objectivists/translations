@@ -15,19 +15,19 @@ class LoginTest < ActionDispatch::IntegrationTest
   # This test targets the logic for #3 as it is implemented across multiple controllers. The other logic is more
   # thoroughly tested in the specific controller tests.
   test 'user is redirected correctly' do
-    get books_url
+    get translations_url
     assert_redirected_to login_url
 
     user = create_logged_in_user
 
     # The redirect should be the url the user was trying to get to.
-    assert_redirected_to books_url
+    assert_redirected_to translations_url
 
     logout_user
     assert_redirected_to login_url
 
     log_in_user user
-    # Since the user has not tried to access any authorized pages, the redirect should be the base admin page.
-    assert_redirected_to admin_url
+    # Since the user has not tried to access any authorized pages, the redirect should be the default page.
+    assert_redirected_to books_url
   end
 end

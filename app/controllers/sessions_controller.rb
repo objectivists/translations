@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user.try(:authenticate, params[:password])
       session[:logged_in_user_id] = user.id
-      redirect_to session[:redirect_url] ? session[:redirect_url] : admin_url
+      redirect_to session[:redirect_url] ? session[:redirect_url] : books_url
       session[:redirect_url] = nil
     else
       redirect_to login_url, alert: 'Invalid username or password'
