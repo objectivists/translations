@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class BooksControllerTest < ActionDispatch::IntegrationTest
-  include AuthenticationTests
+  include AdminBaseTests
 
   setup do
-    @url_to_validate_authentication = books_url
+    @url_to_validate = books_url
   end
 
   test 'should get index and display content' do
@@ -12,7 +12,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     get books_url
 
-    assert_select 'h4', 'Books'
+    assert_select 'h1', 'Books'
 
     assert_select '.book', Book.count
 
@@ -55,6 +55,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to books_url
+    assert_not_nil flash[:notice]
   end
 
   test 'should get edit' do
@@ -79,9 +80,10 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     get book_url(book)
 
     assert_select 'p', /updated-title/
+    assert_not_nil flash[:notice]
   end
 
-  test 'should destroy book' do
+  test 'should delete book' do
     book = create(:book)
     assert_difference('Book.count', -1) do
       delete book_url(book)
@@ -90,7 +92,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to books_url
   end
 
-  test 'should not destroy book with translation' do
+  test 'should not delete book with translation' do
     translation = create :translation
     book = translation.book
 
@@ -99,6 +101,33 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to books_url
+  end
+
+  test 'should display notice when deleted' do
+    book = create(:book)
+    delete book_url(book)
+
+    assert_not_nil flash[:notice]
+    assert_nil flash[:alert]
+
+    get books_url
+
+    assert_select '.alert-info', true
+    assert_select '.alert-warning', false
+  end
+
+  test 'should display alert when delete failed' do
+    translation = create :translation
+    book = translation.book
+    delete book_url(book)
+
+    assert_nil flash[:notice]
+    assert_not_nil flash[:alert]
+
+    get books_url
+
+    assert_select '.alert-info', false
+    assert_select '.alert-warning', true
   end
 
   private

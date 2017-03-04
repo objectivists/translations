@@ -18,16 +18,24 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <p class="navbar-text">Admin</p>
+      <p class="navbar-text <%= 'active' if current_page?(admin_url) %>">Admin</p>
     </div>
     <div class="collapse navbar-collapse" id="navigationbar">
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Books', books_path %></li>
-        <li><%= link_to 'Languages', languages_path %></li>
-        <li><%= link_to 'Translations', translations_path %></li>
+        <li class="<%= 'active' if current_page?(books_path) %>">
+          <%= link_to 'Books', books_path %>
+        </li>
+        <li class="<%= 'active' if current_page?(languages_path) %>">
+          <%= link_to 'Languages', languages_path %>
+        </li>
+        <li class="<%= 'active' if current_page?(translations_path) %>">
+          <%= link_to 'Translations', translations_path %>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to 'Admins', users_path %></li>
+        <li class="<%= 'active' if current_page?(users_path) %>">
+          <%= link_to 'Admins', users_path %>
+        </li>
         <li><%= link_to 'Logout', logout_path, method: :delete %></li>
       </ul>
     </div><!-- /.navbar-collapse -->

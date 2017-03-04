@@ -61,7 +61,7 @@ class BooksController < AdminController
         format.html { redirect_to books_url, notice: 'Book was successfully deleted.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to books_url, notice: 'Book could not be deleted. Make sure it is not being used
+        format.html { redirect_to books_url, alert: 'Book could not be deleted. Make sure it is not being used
           elsewhere (e.g., if there is a translation for the book, the book cannot be deleted).' }
         format.json { render json: @book.errors, status: :conflict }
       end

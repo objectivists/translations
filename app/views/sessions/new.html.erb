@@ -1,14 +1,14 @@
-<% if flash[:alert] %>
-    <p id="notice"><%= flash[:alert] %></p>
-<% end %>
-
-<div style="margin-top:50px;" class="container-fluid col-md-8 col-md-offset-2">
+<div class="container-fluid col-md-8 col-md-offset-2 admin-form">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <div class="panel-title">Please Log In</div>
+        <h1 class="panel-title">Please Log In</h1>
       </div>
 
-      <div style="padding-top:30px" class="panel-body">
+      <div class="panel-body admin-form-fields">
+
+        <% if flash[:alert] %>
+            <p class="alert alert-warning"><%= flash[:alert] %></p>
+        <% end %>
 
         <%= form_tag login_url, {class: 'form-horizontal'}  do %>
             <fieldset>

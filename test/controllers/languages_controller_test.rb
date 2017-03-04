@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class LanguagesControllerTest < ActionDispatch::IntegrationTest
-  include AuthenticationTests
+  include AdminBaseTests
 
   setup do
-    @url_to_validate_authentication = languages_url
+    @url_to_validate = languages_url
   end
 
   test 'should get index and display content' do
@@ -12,7 +12,7 @@ class LanguagesControllerTest < ActionDispatch::IntegrationTest
 
     get languages_url
 
-    assert_select 'h4', 'Languages'
+    assert_select 'h1', 'Languages'
 
     assert_select '.language', Language.count
 
@@ -53,6 +53,7 @@ class LanguagesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to languages_url
+    assert_not_nil flash[:notice]
   end
 
   test 'should get edit' do
@@ -73,9 +74,10 @@ class LanguagesControllerTest < ActionDispatch::IntegrationTest
     get language_url(language)
 
     assert_select 'p', /updated-name/
+    assert_not_nil flash[:notice]
   end
 
-  test 'should destroy language' do
+  test 'should delete language' do
     language = create(:language)
     assert_difference('Language.count', -1) do
       delete language_url(language)
@@ -84,7 +86,7 @@ class LanguagesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to languages_url
   end
 
-  test 'should not destroy language with translation' do
+  test 'should not delete language with translation' do
     translation = create :translation
     language = translation.language
 
@@ -93,6 +95,33 @@ class LanguagesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to languages_url
+  end
+
+  test 'should display notice when deleted' do
+    language = create(:language)
+    delete language_url(language)
+
+    assert_not_nil flash[:notice]
+    assert_nil flash[:alert]
+
+    get languages_url
+
+    assert_select '.alert-info', true
+    assert_select '.alert-warning', false
+  end
+
+  test 'should display alert when delete failed' do
+    translation = create :translation
+    language = translation.language
+    delete language_url(language)
+
+    assert_nil flash[:notice]
+    assert_not_nil flash[:alert]
+
+    get languages_url
+
+    assert_select '.alert-info', false
+    assert_select '.alert-warning', true
   end
 
   private

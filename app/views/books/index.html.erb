@@ -1,50 +1,46 @@
-<p id="notice"><%= notice %></p>
+<%= render 'shared/index_alerts' %>
 
-<div class="container-fluid">
-  <h4>Books</h4>
+<div class="container-fluid col-md-offset-1 col-md-10">
+  <h1 class="sr-only">Books</h1>
   <div class="row">
-    <div class="col-md-12">
 
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th></th>
-          <th>Cover</th>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Slug</th>
-        </tr>
-        </thead>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Slug</th>
+      </tr>
+      </thead>
 
-        <tbody>
-        <% @books.each do |book| %>
-            <tr class="book">
-              <td>
-                <%= link_to edit_book_path(book) do %>
-                    <span class="glyphicon glyphicon-pencil"></span>
-                <% end %>
-                &nbsp;
-                <%= link_to book, method: :delete, data: {confirm: 'Are you sure?'} do %>
-                    <span class="glyphicon glyphicon-remove"></span>
-                <% end %>
-              </td>
-              <td>
-                <%= image_tag(book.cover_image_url, size: '75x85') %>
-              </td>
-              <td><%= book.title %></td>
-              <td><%= book.author %></td>
-              <td><%= book.slug %></td>
+      <tbody>
+      <% @books.each do |book| %>
+          <tr class="book">
+            <td>
+              <%= link_to edit_book_path(book) do %>
+                  <span class="glyphicon glyphicon-pencil"></span>
+              <% end %>
+              &nbsp;
+              <%= link_to book, method: :delete, data: {confirm: 'Are you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove"></span>
+              <% end %>
+            </td>
+            <td>
+              <%= image_tag(book.cover_image_url, size: '75x85') %>
+            </td>
+            <td><%= book.title %></td>
+            <td><%= book.author %></td>
+            <td><%= book.slug %></td>
 
-            </tr>
-        <% end %>
-        </tbody>
-      </table>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
 
-    </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <%= link_to 'New Book', new_book_path, class: 'btn btn-info', role: 'button' %>
-    </div>
+    <%= link_to 'New Book', new_book_path, class: 'btn btn-info', role: 'button' %>
   </div>
 </div>

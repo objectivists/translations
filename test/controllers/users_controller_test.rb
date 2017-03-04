@@ -1,16 +1,16 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
-  include AuthenticationTests
+  include AdminBaseTests
 
   setup do
-    @url_to_validate_authentication = users_url
+    @url_to_validate = users_url
   end
 
   test 'should get index and display content' do
     get users_url
 
-    assert_select 'h4', 'Admins'
+    assert_select 'h1', 'Admins'
 
     assert_select '.user', User.count
 
@@ -46,6 +46,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to users_url
+    assert_not_nil flash[:notice]
   end
 
   test 'should get edit' do
@@ -67,14 +68,28 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get user_url(@user)
 
     assert_select 'p', /updated-email@mail.com/
+    assert_not_nil flash[:notice]
   end
 
-  test 'should destroy user' do
+  test 'should delete user' do
     assert_difference('User.count', -1) do
       delete user_url(@user)
     end
 
     assert_redirected_to users_url
+  end
+
+  test 'should display notice when deleted' do
+    translation = create(:translation)
+    delete translation_url(translation)
+
+    assert_not_nil flash[:notice]
+    assert_nil flash[:alert]
+
+    get translations_url
+
+    assert_select '.alert-info', true
+    assert_select '.alert-warning', false
   end
 
   private

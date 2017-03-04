@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class TranslationsControllerTest < ActionDispatch::IntegrationTest
-  include AuthenticationTests
+  include AdminBaseTests
 
   setup do
-    @url_to_validate_authentication = translations_url
+    @url_to_validate = translations_url
   end
 
   test 'should get index and display content' do
@@ -12,7 +12,7 @@ class TranslationsControllerTest < ActionDispatch::IntegrationTest
 
     get translations_url
 
-    assert_select 'h4', 'Translations'
+    assert_select 'h1', 'Translations'
 
     assert_select '.translation', Translation.count
 
@@ -68,6 +68,7 @@ class TranslationsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to translations_url
+    assert_not_nil flash[:notice]
   end
 
   test 'should show translation' do
@@ -118,15 +119,29 @@ class TranslationsControllerTest < ActionDispatch::IntegrationTest
     get translation_url(translation)
 
     assert_select 'p', /updated-title/
+    assert_not_nil flash[:notice]
   end
 
-  test 'should destroy translation' do
+  test 'should delete translation' do
     translation = create(:translation)
     assert_difference('Translation.count', -1) do
       delete translation_url(translation)
     end
 
     assert_redirected_to translations_url
+  end
+
+  test 'should display notice when deleted' do
+    translation = create(:translation)
+    delete translation_url(translation)
+
+    assert_not_nil flash[:notice]
+    assert_nil flash[:alert]
+
+    get translations_url
+
+    assert_select '.alert-info', true
+    assert_select '.alert-warning', false
   end
 
   private

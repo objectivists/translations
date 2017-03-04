@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class AdminControllerTest < ActionDispatch::IntegrationTest
-  include AuthenticationTests
+  include AdminBaseTests
 
   setup do
-    @url_to_validate_authentication = admin_url
+    @url_to_validate = admin_url
   end
 
   test 'should get index' do

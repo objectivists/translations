@@ -60,7 +60,7 @@ class LanguagesController < AdminController
         format.html { redirect_to languages_url, notice: 'Language was successfully deleted.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to languages_url, notice: 'Language could not be removed. Make sure it is not being used
+        format.html { redirect_to languages_url, alert: 'Language could not be removed. Make sure it is not being used
           elsewhere (e.g., if there is a translation to/from this language, the language cannot be removed).' }
         format.json { render json: @language.errors, status: :conflict }
       end

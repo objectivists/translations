@@ -1,46 +1,42 @@
-<p id="notice"><%= notice %></p>
+<%= render 'shared/index_alerts' %>
 
-<div class="container-fluid">
-  <h4>Languages</h4>
+<div class="container-fluid col-md-offset-1 col-md-10">
+  <h1 class="sr-only">Languages</h1>
   <div class="row">
-    <div class="col-md-12">
 
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Translated name</th>
-          <th>Slug</th>
-        </tr>
-        </thead>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Translated name</th>
+        <th>Slug</th>
+      </tr>
+      </thead>
 
-        <tbody>
-        <% @languages.each do |language| %>
-            <tr class="language">
-            <tr>
-              <td>
-                <%= link_to edit_language_path(language) do %>
-                    <span class="glyphicon glyphicon-pencil"></span>
-                <% end %>
-                &nbsp;
-                <%= link_to language, method: :delete, data: {confirm: 'Are you sure?'} do %>
-                    <span class="glyphicon glyphicon-remove"></span>
-                <% end %>
-              </td>
-              <td><%= language.name %></td>
-              <td><%= language.local_name %></td>
-              <td><%= language.slug %></td>
-            </tr>
-        <% end %>
-        </tbody>
-      </table>
+      <tbody>
+      <% @languages.each do |language| %>
+          <tr class="language">
+          <tr>
+            <td>
+              <%= link_to edit_language_path(language) do %>
+                  <span class="glyphicon glyphicon-pencil"></span>
+              <% end %>
+              &nbsp;
+              <%= link_to language, method: :delete, data: {confirm: 'Are you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove"></span>
+              <% end %>
+            </td>
+            <td><%= language.name %></td>
+            <td><%= language.local_name %></td>
+            <td><%= language.slug %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
 
-    </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <%= link_to 'New Language', new_language_path, class: 'btn btn-info', role: 'button' %>
-    </div>
+    <%= link_to 'New Language', new_language_path, class: 'btn btn-info', role: 'button' %>
   </div>
 </div>
